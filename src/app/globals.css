@@ -1,0 +1,123 @@
+@import "tailwindcss";
+
+/* Map next/font CSS variables (set on <html>) into Tailwind font tokens */
+@theme inline {
+  --font-jakarta: var(--font-face-jakarta), "Plus Jakarta Sans", ui-sans-serif, system-ui,
+    sans-serif;
+  --font-cormorant: var(--font-face-cormorant), "Cormorant Garamond", ui-serif, Georgia, serif;
+  --font-grotesk: var(--font-face-grotesk), "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-syne: var(--font-face-syne), "Syne", ui-sans-serif, system-ui, sans-serif;
+  --font-dm: var(--font-face-dm), "DM Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-instrument: var(--font-face-instrument), "Instrument Serif", ui-serif, Georgia, serif;
+  --font-arabic: var(--font-face-arabic), "Noto Sans Arabic", ui-sans-serif, sans-serif;
+
+  --color-sand-teal: #00a8c0;
+  --color-sand-teal-dark: #007a8f;
+  --color-sand-ink: #12161c;
+  --color-sand-slate: #2a3340;
+  --color-sand-mist: #eef4f6;
+  --color-sand-fog: #f6fafb;
+  --color-sand-line: #d5e1e6;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    overflow-x: clip;
+  }
+
+  body {
+    color: var(--color-sand-ink);
+    background: #fff;
+    overflow-x: clip;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  img,
+  svg,
+  video {
+    max-width: 100%;
+    height: auto;
+  }
+
+  [dir="rtl"],
+  :lang(ar) {
+    font-family: var(--font-arabic);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+  ::selection {
+    background: color-mix(in oklab, var(--color-sand-teal) 28%, white);
+  }
+
+  a:focus-visible,
+  button:focus-visible {
+    outline: 2px solid var(--color-sand-teal);
+    outline-offset: 3px;
+  }
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .text-pretty {
+    text-wrap: pretty;
+  }
+
+  .container-shell {
+    width: min(100% - 2rem, 1120px);
+    margin-inline: auto;
+  }
+
+  .container-wide {
+    width: min(100% - 2rem, 1280px);
+    margin-inline: auto;
+  }
+
+  @media (min-width: 640px) {
+    .container-shell {
+      width: min(100% - 3rem, 1120px);
+    }
+
+    .container-wide {
+      width: min(100% - 3rem, 1280px);
+    }
+  }
+
+  .grain {
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.45'/%3E%3C/svg%3E");
+    pointer-events: none;
+  }
+
+  .safe-pb-switcher {
+    padding-bottom: calc(5.5rem + env(safe-area-inset-bottom, 0px));
+  }
+}
