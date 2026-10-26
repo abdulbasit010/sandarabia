@@ -1,51 +1,11 @@
 import type { Metadata } from "next";
-import {
-  Plus_Jakarta_Sans,
-  Cormorant_Garamond,
-  Space_Grotesk,
-  Syne,
-  DM_Sans,
-  Instrument_Serif,
-  Noto_Sans_Arabic,
-} from "next/font/google";
-import { VariantSwitcher } from "@/components/shared/VariantSwitcher";
+import { Space_Grotesk, Noto_Sans_Arabic } from "next/font/google";
+import { company, siteConfig } from "@/content/site";
 import "./globals.css";
-
-const jakarta = Plus_Jakarta_Sans({
-  subsets: ["latin"],
-  variable: "--font-face-jakarta",
-  display: "swap",
-});
-
-const cormorant = Cormorant_Garamond({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  variable: "--font-face-cormorant",
-  display: "swap",
-});
 
 const grotesk = Space_Grotesk({
   subsets: ["latin"],
   variable: "--font-face-grotesk",
-  display: "swap",
-});
-
-const syne = Syne({
-  subsets: ["latin"],
-  variable: "--font-face-syne",
-  display: "swap",
-});
-
-const dm = DM_Sans({
-  subsets: ["latin"],
-  variable: "--font-face-dm",
-  display: "swap",
-});
-
-const instrument = Instrument_Serif({
-  subsets: ["latin"],
-  weight: "400",
-  variable: "--font-face-instrument",
   display: "swap",
 });
 
@@ -56,9 +16,46 @@ const arabic = Noto_Sans_Arabic({
 });
 
 export const metadata: Metadata = {
-  title: "Sand Arabia — Homepage Design Variants",
-  description:
-    "Three homepage design directions for Sand Arabia Communications & Information Technology Co.",
+  metadataBase: new URL(siteConfig.url),
+  title: {
+    default: `${company.name} — ${company.tagline}`,
+    template: `%s · ${company.name}`,
+  },
+  description: siteConfig.description,
+  applicationName: company.name,
+  icons: {
+    icon: [{ url: "/favicon.png", type: "image/png" }],
+    apple: [{ url: "/images/logo-mark.png" }],
+  },
+  openGraph: {
+    type: "website",
+    locale: siteConfig.locale,
+    url: siteConfig.url,
+    siteName: company.name,
+    title: `${company.name} — ${company.tagline}`,
+    description: siteConfig.description,
+    images: [
+      {
+        url: "/images/hero-futuristic-clean.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Sand Arabia Communications & Information Technology",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${company.name} — ${company.tagline}`,
+    description: siteConfig.description,
+    images: ["/images/hero-futuristic-clean.jpg"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
+  alternates: {
+    canonical: "/",
+  },
 };
 
 export default function RootLayout({
@@ -67,14 +64,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="en"
-      className={`${jakarta.variable} ${cormorant.variable} ${grotesk.variable} ${syne.variable} ${dm.variable} ${instrument.variable} ${arabic.variable}`}
-    >
-      <body className="font-jakarta antialiased">
-        {children}
-        <VariantSwitcher />
-      </body>
+    <html lang="en" className={`${grotesk.variable} ${arabic.variable}`}>
+      <body className="bg-[#04080d] font-grotesk text-white antialiased">{children}</body>
     </html>
   );
 }

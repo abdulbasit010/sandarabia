@@ -1,14 +1,7 @@
 @import "tailwindcss";
 
-/* Map next/font CSS variables (set on <html>) into Tailwind font tokens */
 @theme inline {
-  --font-jakarta: var(--font-face-jakarta), "Plus Jakarta Sans", ui-sans-serif, system-ui,
-    sans-serif;
-  --font-cormorant: var(--font-face-cormorant), "Cormorant Garamond", ui-serif, Georgia, serif;
   --font-grotesk: var(--font-face-grotesk), "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
-  --font-syne: var(--font-face-syne), "Syne", ui-sans-serif, system-ui, sans-serif;
-  --font-dm: var(--font-face-dm), "DM Sans", ui-sans-serif, system-ui, sans-serif;
-  --font-instrument: var(--font-face-instrument), "Instrument Serif", ui-serif, Georgia, serif;
   --font-arabic: var(--font-face-arabic), "Noto Sans Arabic", ui-sans-serif, sans-serif;
 
   --color-sand-teal: #00a8c0;
@@ -18,6 +11,8 @@
   --color-sand-mist: #eef4f6;
   --color-sand-fog: #f6fafb;
   --color-sand-line: #d5e1e6;
+  --color-sand-void: #04080d;
+  --color-sand-cyan: #67e8f9;
 }
 
 @layer base {
@@ -27,8 +22,8 @@
   }
 
   body {
-    color: var(--color-sand-ink);
-    background: #fff;
+    color: #fff;
+    background: #04080d;
     overflow-x: clip;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
@@ -62,24 +57,22 @@
   }
 
   ::selection {
-    background: color-mix(in oklab, var(--color-sand-teal) 28%, white);
+    background: color-mix(in oklab, #67e8f9 35%, transparent);
+    color: #fff;
   }
 
   a:focus-visible,
-  button:focus-visible {
-    outline: 2px solid var(--color-sand-teal);
+  button:focus-visible,
+  input:focus-visible,
+  textarea:focus-visible,
+  select:focus-visible {
+    outline: 2px solid #67e8f9;
     outline-offset: 3px;
   }
-}
 
-@keyframes fadeUp {
-  from {
-    opacity: 0;
-    transform: translateY(16px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
+  select option {
+    color: #041018;
+    background: #fff;
   }
 }
 
@@ -117,7 +110,15 @@
     pointer-events: none;
   }
 
-  .safe-pb-switcher {
-    padding-bottom: calc(5.5rem + env(safe-area-inset-bottom, 0px));
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
   }
 }
