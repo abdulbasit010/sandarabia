@@ -10,7 +10,7 @@
 
 export const company = {
   name: "Sand Arabia",
-  legalName: "Sand Arabia P.L.L.C",
+  legalName: "Sand Arabia",
   nameAr: "الرمال العربية",
   tagline: "Communications & Information Technology",
   taglineAr: "اتصالات و تقنية المعلومات",
@@ -24,6 +24,8 @@ export const company = {
   email: "sales@sandarabia.com",
   phone: "+966 13 889 0128",
   phoneDisplay: "(966) 13-889-0128",
+  whatsapp: "+966595965577",
+  whatsappUrl: "https://wa.me/966595965577",
   foundedYear: 2012,
   foundedNote: "Established in 2012",
   experienceYears: 13,
@@ -209,6 +211,31 @@ export const approvals = [
 export const certifications = [
   "ISO 9001:2015",
   "ISO/IEC 20000:2018 Information Technology Service Management Systems",
+  "ISO 77200 Security Service Providers Management Systems Certified Business™",
+];
+
+/** Individual approval authority logos for table layouts (not a pasted strip). */
+export const approvalLogos = [
+  {
+    id: "gdc",
+    name: "GDC Middle East",
+    src: "/images/approvals/gdc.png",
+  },
+  {
+    id: "sais",
+    name: "Supreme Authority for Industrial Security (SAIS)",
+    src: "/images/approvals/sais.png",
+  },
+  {
+    id: "dga",
+    name: "Digital Government Authority",
+    src: "/images/approvals/dga.png",
+  },
+  {
+    id: "cst",
+    name: "Communications, Space & Technology Commission (CST)",
+    src: "/images/approvals/cst.png",
+  },
 ];
 
 export type Service = {
@@ -254,7 +281,7 @@ export const services: Service[] = [
       "IP Master Clock Solutions",
       "DIA Internet Services for Remote Locations",
     ],
-    image: "/images/tech-overview.jpg",
+    image: "/images/about-clean.jpg",
   },
   {
     id: "av",
@@ -321,7 +348,7 @@ export const services: Service[] = [
       "Customized IPTV Solutions for Hospitality & Healthcare",
       "Support Services (SLA/AMC)",
     ],
-    image: "/images/about-clean.jpg",
+    image: "/images/contact-bg.jpg",
   },
   {
     id: "consultancy",
@@ -339,7 +366,7 @@ export const services: Service[] = [
       "Project Alignment with Standards & Compliance",
       "Project Studies and Third-Party Consultancy Reports",
     ],
-    image: "/images/desert-clean.jpg",
+    image: "/images/tech-overview.jpg",
   },
 ];
 

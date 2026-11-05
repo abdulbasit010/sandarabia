@@ -7,6 +7,7 @@ import { useEffect, useRef, useState } from "react";
 import { SiteHeader } from "@/components/shared/SiteHeader";
 import { SiteFooter } from "@/components/shared/SiteFooter";
 import { Reveal } from "@/components/shared/Reveal";
+import { ApprovalsTable } from "@/components/shared/ApprovalsTable";
 import {
   approvals,
   certifications,
@@ -18,7 +19,6 @@ import {
   services,
   values,
 } from "@/content/site";
-import { flyerServices } from "@/content/flyerServices";
 
 function useCountUp(target: number, active: boolean, duration = 1400) {
   const [value, setValue] = useState(0);
@@ -138,13 +138,6 @@ export function HomePage() {
             <p className="mt-4 max-w-2xl text-xs font-medium uppercase tracking-[0.14em] text-white/55 sm:text-[13px]">
               {company.endToEndTagline}
             </p>
-            <p
-              className="mt-2 max-w-2xl font-arabic text-sm text-white/50"
-              lang="ar"
-              dir="rtl"
-            >
-              {company.endToEndTaglineAr}
-            </p>
             <p className="mt-6 max-w-2xl text-sm leading-relaxed text-white/72 sm:mt-7 sm:text-base md:text-lg text-pretty">
               {overview.body}
             </p>
@@ -229,15 +222,7 @@ export function HomePage() {
       <section className="pb-6 sm:pb-10">
         <div className="container-wide">
           <Reveal>
-            <div className="overflow-hidden rounded-[1.25rem] border border-white/10 bg-white p-4 sm:p-5">
-              <Image
-                src={images.approvalsStrip}
-                alt="Approved by GDC Middle East, SAIS, Digital Government Authority, and CST"
-                width={963}
-                height={152}
-                className="mx-auto h-auto w-full max-w-4xl object-contain"
-              />
-            </div>
+            <ApprovalsTable />
           </Reveal>
         </div>
       </section>
@@ -267,45 +252,6 @@ export function HomePage() {
                   </div>
                 </article>
               </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="border-y border-white/10 py-14 sm:py-16">
-        <div className="container-wide">
-          <Reveal>
-            <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
-              <div>
-                <p className="text-[11px] uppercase tracking-[0.28em] text-cyan-300">
-                  {company.registeredProvider} |{" "}
-                  <span lang="ar" className="font-arabic normal-case tracking-normal">
-                    {company.registeredProviderAr}
-                  </span>
-                </p>
-                <h2 className="mt-3 text-[clamp(1.5rem,3vw,2.35rem)] font-medium">
-                  Services Flyer 2025 — English & Arabic
-                </h2>
-              </div>
-              <Link
-                href="/services"
-                className="text-sm font-semibold text-cyan-300 transition hover:text-white"
-              >
-                All services →
-              </Link>
-            </div>
-          </Reveal>
-          <div className="mt-8 grid gap-2 md:grid-cols-2">
-            {flyerServices.slice(0, 10).map((item) => (
-              <div
-                key={item.en}
-                className="rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3"
-              >
-                <p className="text-sm text-white/80">{item.en}</p>
-                <p className="mt-1 font-arabic text-sm text-cyan-100/75" lang="ar" dir="rtl">
-                  {item.ar}
-                </p>
-              </div>
             ))}
           </div>
         </div>
@@ -352,7 +298,7 @@ export function HomePage() {
                     {service.items.slice(0, 4).map((item) => (
                       <li
                         key={item}
-                        className="rounded-xl border border-white/5 bg-black/20 px-3 py-2 text-xs leading-snug text-white/65 transition group-hover:border-cyan-300/20"
+                        className="rounded-xl border border-white/25 bg-black/20 px-3 py-2 text-xs leading-snug text-white/75 transition group-hover:border-cyan-300/40"
                       >
                         {item}
                       </li>

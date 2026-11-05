@@ -14,13 +14,6 @@ export function SiteFooter() {
             {company.tagline}. Saudi system integrator supporting Vision 2030 with end-to-end
             Communications and Information Technology solutions.
           </p>
-          <p className="mt-4 font-arabic text-sm text-white/45" lang="ar" dir="rtl">
-            {company.taglineAr}
-          </p>
-          <p className="mt-2 text-xs leading-relaxed text-white/40">{company.endToEndTagline}</p>
-          <p className="mt-1 font-arabic text-xs leading-relaxed text-cyan-200/70" lang="ar" dir="rtl">
-            {company.endToEndTaglineAr}
-          </p>
         </div>
 
         <div>
@@ -84,6 +77,16 @@ export function SiteFooter() {
                 {company.email}
               </a>
             </li>
+            <li>
+              <a
+                href={company.whatsappUrl}
+                className="transition hover:text-cyan-300"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                WhatsApp {company.whatsapp}
+              </a>
+            </li>
             <li className="leading-relaxed text-pretty">{offices[0].address}</li>
           </ul>
         </div>
@@ -92,7 +95,7 @@ export function SiteFooter() {
       <div className="border-t border-white/10">
         <div className="container-wide flex flex-col gap-3 py-6 text-sm text-white/40 sm:flex-row sm:items-center sm:justify-between">
           <p>
-            © {year} {company.legalName}
+            © {year} {company.name}
             <span className="mx-2 opacity-40">·</span>
             <span lang="ar" className="font-arabic">
               {company.nameAr}

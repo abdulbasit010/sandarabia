@@ -5,6 +5,7 @@ import { SiteFooter } from "@/components/shared/SiteFooter";
 import { PageHero } from "@/components/shared/PageHero";
 import { CtaBand } from "@/components/shared/CtaBand";
 import { Reveal } from "@/components/shared/Reveal";
+import { ApprovalsTable } from "@/components/shared/ApprovalsTable";
 import {
   approvals,
   brandManagement,
@@ -60,9 +61,6 @@ export default function AboutPage() {
             <h2 className="mt-4 text-[clamp(1.75rem,3.5vw,2.75rem)] font-medium leading-[1.05] text-balance">
               {company.endToEndTagline}
             </h2>
-            <p className="mt-3 font-arabic text-sm text-white/55" lang="ar" dir="rtl">
-              {company.endToEndTaglineAr}
-            </p>
             <p className="mt-5 text-sm leading-relaxed text-white/65 sm:text-base text-pretty">
               {overview.supporting}
             </p>
@@ -90,7 +88,7 @@ export default function AboutPage() {
         <div className="container-wide grid gap-4 md:grid-cols-3">
           {[values.coreValues, values.mission, values.vision].map((item, i) => (
             <Reveal key={item.title} delay={i * 0.05}>
-              <article className="h-full rounded-[1.5rem] border border-white/10 bg-white/[0.03] p-6 sm:p-7">
+              <article className="h-full rounded-[1.5rem] border border-cyan-300/20 bg-cyan-300/[0.04] p-6 sm:p-7">
                 <h3 className="text-[11px] uppercase tracking-[0.2em] text-cyan-300">
                   {item.title}
                 </h3>
@@ -138,8 +136,8 @@ export default function AboutPage() {
           <div className="mt-10 grid gap-4 sm:grid-cols-2">
             {culture.map((item, i) => (
               <Reveal key={item.title} delay={i * 0.04}>
-                <article className="rounded-[1.35rem] border border-white/10 bg-white/[0.03] p-6">
-                  <h3 className="text-lg font-medium">{item.title}</h3>
+                <article className="rounded-[1.35rem] border border-cyan-300/20 bg-cyan-300/[0.04] p-6">
+                  <h3 className="text-lg font-medium text-cyan-100">{item.title}</h3>
                   <p className="mt-3 text-sm leading-relaxed text-white/65 text-pretty">{item.body}</p>
                 </article>
               </Reveal>
@@ -159,7 +157,7 @@ export default function AboutPage() {
           <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {brandManagement.map((item, i) => (
               <Reveal key={item.title} delay={i * 0.03}>
-                <article className="h-full rounded-[1.35rem] border border-white/10 bg-white/[0.03] p-5 sm:p-6">
+                <article className="h-full rounded-[1.35rem] border border-cyan-300/20 bg-cyan-300/[0.04] p-5 sm:p-6">
                   <h3 className="text-[11px] uppercase tracking-[0.16em] text-cyan-300">
                     {item.title}
                   </h3>
@@ -184,8 +182,8 @@ export default function AboutPage() {
           <div className="mt-10 grid gap-4 lg:grid-cols-3">
             {technology.pillars.map((pillar, i) => (
               <Reveal key={pillar.title} delay={i * 0.04}>
-                <article className="h-full rounded-[1.35rem] border border-white/10 bg-white/[0.03] p-6">
-                  <h3 className="text-lg font-medium">{pillar.title}</h3>
+                <article className="h-full rounded-[1.35rem] border border-cyan-300/20 bg-cyan-300/[0.04] p-6">
+                  <h3 className="text-lg font-medium text-cyan-100">{pillar.title}</h3>
                   <ul className="mt-4 space-y-2.5">
                     {pillar.items.map((item) => (
                       <li
@@ -254,14 +252,8 @@ export default function AboutPage() {
               </span>
             </p>
           </Reveal>
-          <div className="mt-8 overflow-hidden rounded-[1.25rem] border border-white/10 bg-white p-4 sm:p-6">
-            <Image
-              src={images.approvalsStrip}
-              alt="Approved by GDC Middle East, Supreme Authority for Industrial Security, Digital Government Authority, and Communications Space & Technology Commission"
-              width={963}
-              height={152}
-              className="mx-auto h-auto w-full max-w-4xl object-contain"
-            />
+          <div className="mt-8">
+            <ApprovalsTable />
           </div>
           <div className="mt-6 flex flex-wrap gap-2 sm:gap-3">
             {[...approvals, ...certifications].map((item) => (
@@ -287,7 +279,7 @@ export default function AboutPage() {
           <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {leadership.map((person, i) => (
               <Reveal key={person.name} delay={i * 0.04}>
-                <article className="rounded-[1.35rem] border border-white/10 bg-white/[0.03] p-6">
+                <article className="rounded-[1.35rem] border border-cyan-300/20 bg-cyan-300/[0.04] p-6">
                   <h3 className="text-lg font-medium">{person.name}</h3>
                   <p className="mt-2 text-[11px] uppercase tracking-[0.16em] text-cyan-300/80">
                     {person.role}

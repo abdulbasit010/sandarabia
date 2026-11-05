@@ -59,12 +59,15 @@ Copy `.env.example` to `.env.local` and configure as needed.
 
 | Variable | Required | Purpose |
 | --- | --- | --- |
-| `CONTACT_WEBHOOK_URL` | No | POST destination for contact form JSON |
-| `RESEND_API_KEY` | No | Send form emails via [Resend](https://resend.com) |
-| `CONTACT_TO_EMAIL` | No | Inbox (default `sales@sandarabia.com`) |
-| `CONTACT_FROM_EMAIL` | No | From address for Resend |
+| `SMTP_HOST` | Yes (for form) | SMTP host (e.g. `mail.sandarabia.com`) |
+| `SMTP_PORT` | No | SMTP port (default `465`) |
+| `SMTP_SECURE` | No | `true` for TLS on 465 (default when port is 465) |
+| `SMTP_USER` | Yes (for form) | SMTP username (e.g. `sales@sandarabia.com`) |
+| `SMTP_PASS` | Yes (for form) | SMTP password |
+| `CONTACT_TO_EMAIL` | Yes (for form) | Inbox that receives inquiries |
+| `CONTACT_FROM_EMAIL` | No | From address (defaults to `SMTP_USER`) |
 
-If neither `CONTACT_WEBHOOK_URL` nor `RESEND_API_KEY` is set, the contact API returns HTTP 503 with a clear message directing users to email or phone. The UI does **not** show a false success state.
+Contact form delivery uses **SMTP only** (no third-party email API). If SMTP env vars are incomplete, `/api/contact` returns HTTP 503 and the UI does **not** show a false success state.
 
 ## Deployment
 

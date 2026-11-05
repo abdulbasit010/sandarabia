@@ -44,6 +44,16 @@ export default function ContactPage() {
                 <p className="text-[11px] uppercase tracking-[0.18em] text-white/50">Email</p>
                 <p className="mt-3 break-all text-xl sm:text-2xl">{company.email}</p>
               </a>
+              <a
+                href={company.whatsappUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block rounded-[1.35rem] border border-[#25D366]/35 bg-[#25D366]/10 p-5 transition hover:border-[#25D366]/60 hover:bg-[#25D366]/15 sm:p-6"
+              >
+                <p className="text-[11px] uppercase tracking-[0.18em] text-[#25D366]/90">WhatsApp</p>
+                <p className="mt-3 text-xl sm:text-2xl">{company.whatsapp}</p>
+                <p className="mt-2 text-sm text-white/50">Chat with our team directly</p>
+              </a>
 
               {offices.map((office) => (
                 <div

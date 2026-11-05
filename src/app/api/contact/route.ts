@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import nodemailer from "nodemailer";
 
 type ContactPayload = {
   name?: string;
@@ -12,6 +13,15 @@ type ContactPayload = {
 
 function isValidEmail(email: string) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+
+function smtpConfigured() {
+  return Boolean(
+    process.env.SMTP_HOST &&
+      process.env.SMTP_USER &&
+      process.env.SMTP_PASS &&
+      process.env.CONTACT_TO_EMAIL,
+  );
 }
 
 export async function POST(request: Request) {
@@ -59,80 +69,12 @@ export async function POST(request: Request) {
     );
   }
 
-  const webhook = process.env.CONTACT_WEBHOOK_URL;
-  const resendKey = process.env.RESEND_API_KEY;
-  const toEmail = process.env.CONTACT_TO_EMAIL || "sales@sandarabia.com";
-  const fromEmail = process.env.CONTACT_FROM_EMAIL || "noreply@sandarabia.com";
-
-  const payload = {
-    name,
-    email,
-    phone,
-    company,
-    service,
-    message,
-    receivedAt: new Date().toISOString(),
-  };
-
-  try {
-    if (webhook) {
-      const res = await fetch(webhook, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      });
-      if (!res.ok) {
-        throw new Error(`Webhook responded ${res.status}`);
-      }
-      return NextResponse.json({
-        ok: true,
-        configured: true,
-        message: "Thank you. Your message has been sent successfully.",
-      });
-    }
-
-    if (resendKey) {
-      const res = await fetch("https://api.resend.com/emails", {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${resendKey}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          from: fromEmail,
-          to: [toEmail],
-          reply_to: email,
-          subject: `Sand Arabia website inquiry from ${name}`,
-          text: [
-            `Name: ${name}`,
-            `Email: ${email}`,
-            phone ? `Phone: ${phone}` : null,
-            company ? `Organization: ${company}` : null,
-            service ? `Interest: ${service}` : null,
-            "",
-            message,
-          ]
-            .filter(Boolean)
-            .join("\n"),
-        }),
-      });
-      if (!res.ok) {
-        throw new Error(`Resend responded ${res.status}`);
-      }
-      return NextResponse.json({
-        ok: true,
-        configured: true,
-        message: "Thank you. Your message has been sent successfully.",
-      });
-    }
-
-    // No delivery channel configured — do not pretend success
-    console.info("[contact] Inquiry received (no delivery channel configured):", {
+  if (!smtpConfigured()) {
+    console.info("[contact] Inquiry received (SMTP not fully configured):", {
       name,
       email,
       service,
     });
-
     return NextResponse.json(
       {
         ok: false,
@@ -142,8 +84,54 @@ export async function POST(request: Request) {
       },
       { status: 503 },
     );
+  }
+
+  const host = process.env.SMTP_HOST!;
+  const port = Number(process.env.SMTP_PORT || "465");
+  const secure =
+    process.env.SMTP_SECURE === "true" ||
+    process.env.SMTP_SECURE === "1" ||
+    port === 465;
+  const user = process.env.SMTP_USER!;
+  const pass = process.env.SMTP_PASS!;
+  const toEmail = process.env.CONTACT_TO_EMAIL!;
+  const fromEmail = process.env.CONTACT_FROM_EMAIL || user;
+
+  const textBody = [
+    `Name: ${name}`,
+    `Email: ${email}`,
+    phone ? `Phone: ${phone}` : null,
+    company ? `Organization: ${company}` : null,
+    service ? `Interest: ${service}` : null,
+    "",
+    message,
+  ]
+    .filter(Boolean)
+    .join("\n");
+
+  try {
+    const transporter = nodemailer.createTransport({
+      host,
+      port,
+      secure,
+      auth: { user, pass },
+    });
+
+    await transporter.sendMail({
+      from: `"Sand Arabia Website" <${fromEmail}>`,
+      to: toEmail,
+      replyTo: email,
+      subject: `Sand Arabia website inquiry from ${name}`,
+      text: textBody,
+    });
+
+    return NextResponse.json({
+      ok: true,
+      configured: true,
+      message: "Thank you. Your message has been sent successfully.",
+    });
   } catch (error) {
-    console.error("[contact] Delivery failed:", error);
+    console.error("[contact] SMTP delivery failed:", error);
     return NextResponse.json(
       {
         ok: false,

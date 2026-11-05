@@ -55,7 +55,7 @@ export default async function ServiceDetailPage({ params }: Props) {
               {service.items.map((item) => (
                 <li
                   key={item}
-                  className="flex gap-3 rounded-2xl border border-white/10 bg-white/[0.03] px-4 py-3.5 text-sm text-white/75 sm:text-base"
+                  className="flex gap-3 rounded-2xl border border-white/25 bg-white/[0.03] px-4 py-3.5 text-sm text-white/75 sm:text-base"
                 >
                   <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-cyan-300" aria-hidden />
                   <span className="text-pretty">{item}</span>
